@@ -43,12 +43,15 @@ public struct HorizontalValueSliderStyle<Track: View, Thumb: View>: ValueSliderS
                 }
                 
                 ZStack {
+                  if configuration.showThumb {
                     self.thumb
                         .frame(
                           width: self.options.contains(.enlargeThumbWhenDragging) && configuration.pressed.wrappedValue ? self.thumbInteractiveSize.width : self.thumbSize.width,
                           height: self.options.contains(.enlargeThumbWhenDragging) && configuration.pressed.wrappedValue ? self.thumbInteractiveSize.height : self.thumbSize.height
                         )
-
+                  } else {
+                    EmptyView()
+                  }
                 }
                 .frame(minWidth: self.thumbInteractiveSize.width, minHeight: self.thumbInteractiveSize.height)
                 .position(
@@ -62,6 +65,7 @@ public struct HorizontalValueSliderStyle<Track: View, Thumb: View>: ValueSliderS
                     y: geometry.size.height / 2
                 )
                 .gesture(
+                  configuration.showThumb ?
                     DragGesture()
                         .onChanged { gestureValue in
                           configuration.pressed.wrappedValue = true
@@ -91,7 +95,7 @@ public struct HorizontalValueSliderStyle<Track: View, Thumb: View>: ValueSliderS
                           configuration.pressed.wrappedValue = false
                             configuration.dragOffset.wrappedValue = nil
                             configuration.onEditingChanged(false)
-                        }
+                        } : nil
                 )
             }
             .frame(height: geometry.size.height)

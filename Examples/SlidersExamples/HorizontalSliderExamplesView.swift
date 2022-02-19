@@ -3,11 +3,14 @@ import Sliders
 
 struct HorizontalSliderExamplesView: View {
     @EnvironmentObject var model: Model
+    @State var showThumb = true
     
     var body: some View {
         ScrollView {
             Group {
-                
+              Button("toggle thumb") {
+                self.showThumb.toggle()
+              }
                 Slider(value: $model.value1)
 
                 ValueSlider(value: $model.value1)
@@ -17,7 +20,7 @@ struct HorizontalSliderExamplesView: View {
                         HorizontalValueSliderStyle(thumbSize: CGSize(width: 16, height: 32))
                     )
               
-                ValueSlider(value: $model.value1)
+              ValueSlider(value: $model.value1, showThumb: self.showThumb)
                   .valueSliderStyle(
                     HorizontalValueSliderStyle(
                       track: HorizontalTrack(view: Color.red)
@@ -27,7 +30,8 @@ struct HorizontalSliderExamplesView: View {
                       thumb: Circle().foregroundColor(.red),
                       thumbSize: .init(width: 12, height: 12),
                       thumbInteractiveSize: .init(width: 18, height: 18),
-                      options: .interactiveTrack
+                      options: .defaultOptions
+//                        .union(.interactiveTrack)
                         .union(.enlargeThumbWhenDragging)
                     )
                   )
@@ -171,6 +175,6 @@ struct HorizontalSliderExamplesView: View {
 
 struct HorizontalSliderExamplesView_Previews: PreviewProvider {
     static var previews: some View {
-        HorizontalSliderExamplesView().environmentObject(Model.preview)
+      HorizontalSliderExamplesView().preferredColorScheme(.dark).environmentObject(Model.preview)
     }
 }

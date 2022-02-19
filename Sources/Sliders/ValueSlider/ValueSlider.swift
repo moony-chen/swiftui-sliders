@@ -3,7 +3,7 @@ import SwiftUI
 public struct ValueSlider: View {
     @Environment(\.valueSliderStyle) private var style
     @State private var dragOffset: CGFloat?
-  @State private var pressed: Bool = false
+    @State private var pressed: Bool = false
     
     private var configuration: ValueSliderStyleConfiguration
     
@@ -24,7 +24,7 @@ extension ValueSlider {
 }
 
 extension ValueSlider {
-    public init<V>(value: Binding<V>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, onEditingChanged: @escaping (Bool) -> Void = { _ in }) where V : BinaryFloatingPoint, V.Stride : BinaryFloatingPoint {
+  public init<V>(value: Binding<V>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, showThumb: Bool = true, onEditingChanged: @escaping (Bool) -> Void = { _ in }) where V : BinaryFloatingPoint, V.Stride : BinaryFloatingPoint {
         
         self.init(
             ValueSliderStyleConfiguration(
@@ -33,14 +33,15 @@ extension ValueSlider {
                 step: CGFloat(step),
                 onEditingChanged: onEditingChanged,
                 dragOffset: .constant(0),
-                pressed: .constant(false)
+                pressed: .constant(false),
+                showThumb: showThumb
             )
         )
     }
 }
 
 extension ValueSlider {
-    public init<V>(value: Binding<V>, in bounds: ClosedRange<V> = 0...1, step: V.Stride = 1, onEditingChanged: @escaping (Bool) -> Void = { _ in }) where V : BinaryInteger, V.Stride : BinaryInteger {
+    public init<V>(value: Binding<V>, in bounds: ClosedRange<V> = 0...1, step: V.Stride = 1, showThumb: Bool = true, onEditingChanged: @escaping (Bool) -> Void = { _ in }) where V : BinaryInteger, V.Stride : BinaryInteger {
         self.init(
             ValueSliderStyleConfiguration(
                 value: Binding(get: { CGFloat(value.wrappedValue) }, set: { value.wrappedValue = V($0) }),
@@ -48,7 +49,8 @@ extension ValueSlider {
                 step: CGFloat(step),
                 onEditingChanged: onEditingChanged,
                 dragOffset: .constant(0),
-                pressed: .constant(false)
+                pressed: .constant(false),
+                showThumb: showThumb
             )
         )
     }
