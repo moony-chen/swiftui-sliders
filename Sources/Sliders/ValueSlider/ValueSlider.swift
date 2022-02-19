@@ -3,12 +3,16 @@ import SwiftUI
 public struct ValueSlider: View {
     @Environment(\.valueSliderStyle) private var style
     @State private var dragOffset: CGFloat?
+  @State private var pressed: Bool = false
     
     private var configuration: ValueSliderStyleConfiguration
     
     public var body: some View {
         self.style.makeBody(configuration:
-            self.configuration.with(dragOffset: self.$dragOffset)
+            self.configuration.with(
+              dragOffset: self.$dragOffset,
+              pressed: self.$pressed
+            )
         )
     }
 }
@@ -28,7 +32,8 @@ extension ValueSlider {
                 bounds: CGFloat(bounds.lowerBound)...CGFloat(bounds.upperBound),
                 step: CGFloat(step),
                 onEditingChanged: onEditingChanged,
-                dragOffset: .constant(0)
+                dragOffset: .constant(0),
+                pressed: .constant(false)
             )
         )
     }
@@ -42,7 +47,8 @@ extension ValueSlider {
                 bounds: CGFloat(bounds.lowerBound)...CGFloat(bounds.upperBound),
                 step: CGFloat(step),
                 onEditingChanged: onEditingChanged,
-                dragOffset: .constant(0)
+                dragOffset: .constant(0),
+                pressed: .constant(false)
             )
         )
     }

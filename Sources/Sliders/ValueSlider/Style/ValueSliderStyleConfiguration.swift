@@ -6,10 +6,12 @@ public struct ValueSliderStyleConfiguration {
     public let step: CGFloat
     public let onEditingChanged: (Bool) -> Void
     public var dragOffset: Binding<CGFloat?>
+    public var pressed: Binding<Bool>
     
-    func with(dragOffset: Binding<CGFloat?>) -> Self {
+    func with(dragOffset: Binding<CGFloat?>, pressed: Binding<Bool>) -> Self {
         var mutSelf = self
         mutSelf.dragOffset = dragOffset
+        mutSelf.pressed = pressed
         return mutSelf
     }
 }

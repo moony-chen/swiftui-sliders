@@ -44,7 +44,11 @@ public struct HorizontalValueSliderStyle<Track: View, Thumb: View>: ValueSliderS
                 
                 ZStack {
                     self.thumb
-                        .frame(width: self.thumbSize.width, height: self.thumbSize.height)
+                        .frame(
+                          width: self.options.contains(.enlargeThumbWhenDragging) && configuration.pressed.wrappedValue ? self.thumbInteractiveSize.width : self.thumbSize.width,
+                          height: self.options.contains(.enlargeThumbWhenDragging) && configuration.pressed.wrappedValue ? self.thumbInteractiveSize.height : self.thumbSize.height
+                        )
+
                 }
                 .frame(minWidth: self.thumbInteractiveSize.width, minHeight: self.thumbInteractiveSize.height)
                 .position(
@@ -60,6 +64,7 @@ public struct HorizontalValueSliderStyle<Track: View, Thumb: View>: ValueSliderS
                 .gesture(
                     DragGesture()
                         .onChanged { gestureValue in
+                          configuration.pressed.wrappedValue = true
                             if configuration.dragOffset.wrappedValue == nil {
                                 configuration.dragOffset.wrappedValue = gestureValue.startLocation.x - distanceFrom(
                                     value: configuration.value.wrappedValue,
@@ -83,6 +88,7 @@ public struct HorizontalValueSliderStyle<Track: View, Thumb: View>: ValueSliderS
                             configuration.onEditingChanged(true)
                         }
                         .onEnded { _ in
+                          configuration.pressed.wrappedValue = false
                             configuration.dragOffset.wrappedValue = nil
                             configuration.onEditingChanged(false)
                         }

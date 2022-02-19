@@ -16,6 +16,22 @@ struct HorizontalSliderExamplesView: View {
                     .valueSliderStyle(
                         HorizontalValueSliderStyle(thumbSize: CGSize(width: 16, height: 32))
                     )
+              
+                ValueSlider(value: $model.value1)
+                  .valueSliderStyle(
+                    HorizontalValueSliderStyle(
+                      track: HorizontalTrack(view: Color.red)
+                        .frame(height: 3)
+                        .background(Color.secondary.opacity(0.25))
+                        .cornerRadius(1.5),
+                      thumb: Circle().foregroundColor(.red),
+                      thumbSize: .init(width: 12, height: 12),
+                      thumbInteractiveSize: .init(width: 18, height: 18),
+                      options: .interactiveTrack
+                        .union(.enlargeThumbWhenDragging)
+                    )
+                  )
+                
                 
                 ValueSlider(value: $model.value3)
                     .valueSliderStyle(
