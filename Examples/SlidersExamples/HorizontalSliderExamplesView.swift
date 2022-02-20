@@ -32,6 +32,7 @@ struct HorizontalSliderExamplesView: View {
                       thumbInteractiveSize: .init(width: 18, height: 18),
                       options: .defaultOptions
 //                        .union(.interactiveTrack)
+                        .union(.thumbDragableWhenHidden)
                         .union(.enlargeThumbWhenDragging)
                     )
                   )
