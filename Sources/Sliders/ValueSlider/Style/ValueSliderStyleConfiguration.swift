@@ -4,7 +4,7 @@ public struct ValueSliderStyleConfiguration {
     public let value: Binding<CGFloat>
     public let bounds: ClosedRange<CGFloat>
     public let step: CGFloat
-    public let onEditingChanged: (Bool) -> Void
+    public let onEditingChanged: (CGFloat?) -> Void
     public var dragOffset: Binding<CGFloat?>
     public var pressed: Binding<Bool>
     public var showThumb: Bool = true

@@ -32,10 +32,10 @@ public struct VerticalValueSliderStyle<Track: View, Thumb: View>: ValueSliderSty
                                     trailingOffset: self.thumbSize.height / 2
                                 )
                                 configuration.value.wrappedValue = computedValue
-                                configuration.onEditingChanged(true)
+                                configuration.onEditingChanged(computedValue)
                             }
                             .onEnded { _ in
-                                configuration.onEditingChanged(false)
+                                configuration.onEditingChanged(nil)
                             }
                     )
                 } else {
@@ -80,11 +80,11 @@ public struct VerticalValueSliderStyle<Track: View, Thumb: View>: ValueSliderSty
                             )
                             
                             configuration.value.wrappedValue = computedValue
-                            configuration.onEditingChanged(true)
+                            configuration.onEditingChanged(computedValue)
                         }
                         .onEnded { _ in
                             configuration.dragOffset.wrappedValue = nil
-                            configuration.onEditingChanged(false)
+                            configuration.onEditingChanged(nil)
                         }
                 )
             }
